@@ -1,12 +1,19 @@
-import pkg from "mongoose";
+import mongoose from "mongoose";
+import { MIN_AGE, MAX_AGE } from "../lib/constants";
 
-const { model, Schema } = pkg;
+const { Schema, SchemaTypes, model } = mongoose;
 
-const contactSchema = new Schema(
+const constactShema = new Schema(
   {
     name: {
       type: String,
       required: [true, "Set name for contact"],
+    },
+    age: {
+      type: Number,
+      min: MIN_AGE,
+      max: MAX_AGE,
+      default: null,
     },
     email: {
       type: String,
@@ -17,6 +24,11 @@ const contactSchema = new Schema(
     favorite: {
       type: Boolean,
       default: false,
+    },
+    owner: {
+      type: SchemaTypes.ObjectId,
+      ref: "user",
+      required: true,
     },
   },
   {
@@ -29,10 +41,9 @@ const contactSchema = new Schema(
         return ret;
       },
     },
-    toObject: { virtuals: true },
   }
 );
 
-const Contact = model("contact", contactSchema);
+const Contact = model("contact", constactShema);
 
 export default Contact;
