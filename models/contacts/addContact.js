@@ -1,12 +1,8 @@
-import Contact from "../../model/Contact";
-import chalk from "chalk";
+import Contact from "../../model/constact";
 
-export const addContact = async (body) => {
-  try {
-    const result = await Contact.create(body);
-    return result;
-  } catch (error) {
-    console.error(chalk.bgRed(error));
-    process.exit(1);
-  }
+const addContact = async (userId, body) => {
+  const result = await Contact.create({ ...body, owner: userId });
+  return result;
 };
+
+export default addContact;

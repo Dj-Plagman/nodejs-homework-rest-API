@@ -1,12 +1,11 @@
-import Contact from "../../model/Contact";
-import chalk from "chalk";
+import Contact from "../../model/constact";
 
-export const removeContact = async (contactId) => {
-  try {
-    const result = await Contact.findByIdAndRemove(contactId);
-    return result;
-  } catch (error) {
-    console.error(chalk.bgRed(error));
-    process.exit(1);
-  }
+const removeContact = async (userId, contactId) => {
+  const result = await Contact.findOneAndRemove({
+    _id: contactId,
+    owner: userId,
+  });
+  return result;
 };
+
+export default removeContact;

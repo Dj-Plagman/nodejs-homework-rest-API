@@ -1,5 +1,5 @@
 import app from "../app";
-import db from "../config/db";
+import db from "../db/db";
 
 const PORT = process.env.PORT || 3000;
 
@@ -8,5 +8,5 @@ db.then(() => {
     console.log(`Server running. Use our API on port: ${PORT}`);
   });
 }).catch((err) => {
-  console.log(`Server error: ${err.message}`);
+  console.log(`Server is not running. Error: ${err.message}`);
 });

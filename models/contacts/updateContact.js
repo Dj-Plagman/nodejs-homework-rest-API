@@ -1,16 +1,14 @@
-import Contact from "../../model/Contact";
-import chalk from "chalk";
+import Contact from "../../model/constact";
 
-export const updateContact = async (contactId, body) => {
-  try {
-    const result = await Contact.findByIdAndUpdate(
-      contactId,
-      { ...body },
-      { new: "true" }
-    );
-    return result;
-  } catch (error) {
-    console.error(chalk.bgRed(error));
-    process.exit(1);
-  }
+const updateContact = async (userId, contactId, body) => {
+  const result = await Contact.findOneAndUpdate(
+    {
+      _id: contactId,
+      owner: userId,
+    },
+    { ...body },
+    { new: true }
+  );
+  return result;
 };
+export default updateContact;
