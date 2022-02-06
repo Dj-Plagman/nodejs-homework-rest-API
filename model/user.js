@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcryptjs from "bcryptjs";
+import gravatar from "gravatar/";
 import { SUBSCRIPTIONS } from "../lib/constants";
 
 const { Schema, model } = mongoose;
@@ -22,7 +23,7 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: [true, "Set password for user"],
-      // minLength: 8, // TODO
+
     },
     subscription: {
       type: String,
@@ -33,6 +34,17 @@ const userSchema = new Schema(
       default: SUBSCRIPTIONS.STARTER,
     },
     token: {
+      type: String,
+      default: null,
+    },
+    avatar: {
+      type: String,
+      default: function () {
+        return gravatar.url(this.email, { s: "250" }, true);
+      },
+
+    },
+    idAvatarCloud: {
       type: String,
       default: null,
     },
